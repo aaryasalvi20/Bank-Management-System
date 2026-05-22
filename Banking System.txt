@@ -1,0 +1,173 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Sun Mar 8 17:43:46 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> CONNECT SYSTEM
+Enter password:
+Connected.
+SQL> CONNECT SECMPNA65
+Enter password:
+Connected.
+SQL> CREATE TABLE BRANCH (
+  2     Branch_ID INT PRIMARY KEY,
+  3     Branch_Name VARCHAR(20),
+  4     IFSC_Code VARCHAR(10),
+  5     Location VARCHAR(20),
+  6     City VARCHAR(20),
+  7     Pincode VARCHAR(10)
+  8  );
+
+Table created.
+
+SQL> INSERT INTO BRANCH VALUES (101, 'Main Branch', 'IFSC0001', 'MG Road', 'Mumbai', 400001);
+
+1 row created.
+
+SQL>
+SQL> INSERT INTO BRANCH VALUES (102, 'Central Branch', 'IFSC0002', 'Connaught Place', 'Delhi', 110001);
+
+1 row created.
+
+SQL>
+SQL> INSERT INTO BRANCH VALUES (103, 'City Branch', 'IFSC0003', 'Brigade Road', 'Bangalore', 560001);
+
+1 row created.
+
+SQL>
+SQL> INSERT INTO BRANCH VALUES (104, 'West Branch', 'IFSC0004', 'Park Street', 'Kolkata', 700016);
+
+1 row created.
+
+SQL> SELECT * FROM BRANCH;
+
+ BRANCH_ID BRANCH_NAME          IFSC_CODE  LOCATION
+---------- -------------------- ---------- --------------------
+CITY                 PINCODE
+-------------------- ----------
+       101 Main Branch          IFSC0001   MG Road
+Mumbai               400001
+
+       102 Central Branch       IFSC0002   Connaught Place
+Delhi                110001
+
+       103 City Branch          IFSC0003   Brigade Road
+Bangalore            560001
+
+
+ BRANCH_ID BRANCH_NAME          IFSC_CODE  LOCATION
+---------- -------------------- ---------- --------------------
+CITY                 PINCODE
+-------------------- ----------
+       104 West Branch          IFSC0004   Park Street
+Kolkata              700016
+
+
+SQL> SET LINESIZE 200;
+SQL> SET PAGESIZE 50;
+SQL> SELECT * FROM BRANCH;
+
+ BRANCH_ID BRANCH_NAME          IFSC_CODE  LOCATION             CITY                 PINCODE
+---------- -------------------- ---------- -------------------- -------------------- ----------
+       101 Main Branch          IFSC0001   MG Road              Mumbai               400001
+       102 Central Branch       IFSC0002   Connaught Place      Delhi                110001
+       103 City Branch          IFSC0003   Brigade Road         Bangalore            560001
+       104 West Branch          IFSC0004   Park Street          Kolkata              700016
+
+SQL> ALTER TABLE BRANCH ADD Manager_Name VARCHAR(20);
+
+Table altered.
+
+SQL> SELECT * FROM BRANCH;
+
+ BRANCH_ID BRANCH_NAME          IFSC_CODE  LOCATION             CITY                 PINCODE    MANAGER_NAME
+---------- -------------------- ---------- -------------------- -------------------- ---------- --------------------
+       101 Main Branch          IFSC0001   MG Road              Mumbai               400001
+       102 Central Branch       IFSC0002   Connaught Place      Delhi                110001
+       103 City Branch          IFSC0003   Brigade Road         Bangalore            560001
+       104 West Branch          IFSC0004   Park Street          Kolkata              700016
+
+SQL> ALTER TABLE BRANCH DROP COLUMN Manager_Name;
+
+Table altered.
+
+SQL> SELECT * FROM BRANCH;
+
+ BRANCH_ID BRANCH_NAME          IFSC_CODE  LOCATION             CITY                 PINCODE
+---------- -------------------- ---------- -------------------- -------------------- ----------
+       101 Main Branch          IFSC0001   MG Road              Mumbai               400001
+       102 Central Branch       IFSC0002   Connaught Place      Delhi                110001
+       103 City Branch          IFSC0003   Brigade Road         Bangalore            560001
+       104 West Branch          IFSC0004   Park Street          Kolkata              700016
+
+SQL> ALTER TABLE BRANCH MODIFY BRANCH_NAME VARCHAR(25);
+
+Table altered.
+
+SQL> SELECT * FROM BRANCH;
+
+ BRANCH_ID BRANCH_NAME               IFSC_CODE  LOCATION             CITY                 PINCODE
+---------- ------------------------- ---------- -------------------- -------------------- ----------
+       101 Main Branch               IFSC0001   MG Road              Mumbai               400001
+       102 Central Branch            IFSC0002   Connaught Place      Delhi                110001
+       103 City Branch               IFSC0003   Brigade Road         Bangalore            560001
+       104 West Branch               IFSC0004   Park Street          Kolkata              700016
+
+SQL> ALTER TABLE BRANCH RENAME COLUMN Location TO Branch_Location;
+
+Table altered.
+
+SQL> SELECT * FROM BRANCH;
+
+ BRANCH_ID BRANCH_NAME               IFSC_CODE  BRANCH_LOCATION      CITY                 PINCODE
+---------- ------------------------- ---------- -------------------- -------------------- ----------
+       101 Main Branch               IFSC0001   MG Road              Mumbai               400001
+       102 Central Branch            IFSC0002   Connaught Place      Delhi                110001
+       103 City Branch               IFSC0003   Brigade Road         Bangalore            560001
+       104 West Branch               IFSC0004   Park Street          Kolkata              700016
+
+SQL> UPDATE BRANCH SET Branch_Location = 'Karol Bagh' WHERE CITY = 'Delhi';
+
+1 row updated.
+
+SQL> SELECT * FROM BRANCH;
+
+ BRANCH_ID BRANCH_NAME               IFSC_CODE  BRANCH_LOCATION      CITY                 PINCODE
+---------- ------------------------- ---------- -------------------- -------------------- ----------
+       101 Main Branch               IFSC0001   MG Road              Mumbai               400001
+       102 Central Branch            IFSC0002   Karol Bagh           Delhi                110001
+       103 City Branch               IFSC0003   Brigade Road         Bangalore            560001
+       104 West Branch               IFSC0004   Park Street          Kolkata              700016
+
+SQL> DELETE FROM BRANCH WHERE BRANCH_NAME = 'City Branch';
+
+1 row deleted.
+
+SQL> SELECT * FROM BRANCH;
+
+ BRANCH_ID BRANCH_NAME               IFSC_CODE  BRANCH_LOCATION      CITY                 PINCODE
+---------- ------------------------- ---------- -------------------- -------------------- ----------
+       101 Main Branch               IFSC0001   MG Road              Mumbai               400001
+       102 Central Branch            IFSC0002   Karol Bagh           Delhi                110001
+       104 West Branch               IFSC0004   Park Street          Kolkata              700016
+
+SQL> TRUNCATE TABLE BRANCH;
+
+Table truncated.
+
+SQL> SELECT * FROM BRANCH;
+
+no rows selected
+
+SQL> DROP TABLE BRANCH;
+
+Table dropped.
+
+SQL> SELECT * FROM BRANCH;
+SELECT * FROM BRANCH
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL>
